@@ -6,16 +6,19 @@
         justify-content: center;
         background: #f5f6fa;
         font-family: Arial, sans-serif;
-      }
+          background: linear-gradient(120deg, #232946 0%, #1a1f2b 100%);
       .login-card {
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+        background: rgba(35, 41, 70, 0.98);
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(74,144,226,0.25), 0 1.5px 0 #4a90e2;
         padding: 2.5rem 2rem;
         width: 400px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        z-index: 2;
+        border: 1.5px solid #4a90e2;
+        backdrop-filter: blur(2px);
       }
       .logo-placeholder {
         width: 70px;
@@ -134,14 +137,17 @@
         font-family: Arial, sans-serif;
       }
       .signup-card {
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+        background: rgba(35, 41, 70, 0.98);
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(74,144,226,0.25), 0 1.5px 0 #4a90e2;
         padding: 2.5rem 2rem;
         width: 400px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        z-index: 2;
+        border: 1.5px solid #4a90e2;
+        backdrop-filter: blur(2px);
       }
       .logo-placeholder {
         width: 56px;
@@ -241,3 +247,4 @@
         text-decoration: none;
         font-weight: 500;
       }
+    }
