@@ -14,12 +14,12 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Serve login page at root
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login-wireframe.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login-wireframe.html"));
 });
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI, { tls: true });
 
 const userSchema = new mongoose.Schema({
   name: String,
