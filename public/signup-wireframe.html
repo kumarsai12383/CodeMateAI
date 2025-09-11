@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <title>Sign Up Wireframe</title>
+    <link rel="stylesheet" href="login.css">
+  </head>
+  <body>
+    <div class="signup-card">
+      <div class="logo-placeholder"><img src="edu logo.jpg" width="50" height="50" alt=""></div>
+      <h2>Create Your Account</h2>
+      <form>
+        <div class="input-group">
+          <span class="input-icon">&#128100;</span>
+          <input type="text" placeholder="Full Name" required />
+        </div>
+        <div class="input-group">
+          <span class="input-icon">@</span>
+          <input type="email" placeholder="Email" required />
+        </div>
+        <div class="input-group">
+          <span class="input-icon">&#128274;</span>
+          <input type="password" placeholder="Password" required />
+        </div>
+        <button type="submit" class="signup-btn">Sign Up</button>
+      </form>
+        <div class="divider"><span>or</span></div>
+      <div class="bottom-text">
+        Already have an account? <a href="login-wireframe.html">Login</a>
+      </div>
+    </div>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
+  </script>
+  <script type="module">
+    import { handleSignupForm } from './login-signup.js';
+    handleSignupForm();
+  </script>
+  </body>
+</html>
+
