@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI, { tls: true });
+mongoose.connect(process.env.MONGODB_URI);
 
 const userSchema = new mongoose.Schema({
   name: String,
