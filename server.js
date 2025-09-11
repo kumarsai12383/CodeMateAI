@@ -13,6 +13,11 @@ app.use(bodyParser.json());
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, "public")));
 
+// Serve login page at root
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login-wireframe.html'));
+});
+
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI);
 
