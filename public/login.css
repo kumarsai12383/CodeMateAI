@@ -32,6 +32,9 @@
         font-size: 1.5rem;
         color: #b0b3b8;
       }
+      .logo{
+        border-radius: 10px;
+      }
       h2 {
         margin: 0 0 1.5rem 0;
         font-size: 1.3rem;
