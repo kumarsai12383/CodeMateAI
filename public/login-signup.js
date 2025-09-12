@@ -40,6 +40,30 @@ export function handleLoginForm(submitCallback) {
       showPopup("Forgot password clicked. Backend logic needed.", false);
     });
   }
+
+  // Password toggle icon logic (login only)
+  const passwordInput = loginForm.querySelector('input[type="password"]');
+  if (passwordInput) {
+    let toggle = document.createElement("span");
+    toggle.className = "password-toggle";
+    toggle.innerHTML = '<i class="fa fa-eye"></i>';
+    toggle.style.position = "absolute";
+    toggle.style.right = "12px";
+    toggle.style.top = "50%";
+    toggle.style.transform = "translateY(-50%)";
+    toggle.style.cursor = "pointer";
+    toggle.style.color = "#4a90e2";
+    toggle.onclick = function () {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggle.innerHTML = '<i class="fa fa-eye-slash"></i>';
+      } else {
+        passwordInput.type = "password";
+        toggle.innerHTML = '<i class="fa fa-eye"></i>';
+      }
+    };
+    passwordInput.parentNode.appendChild(toggle);
+  }
 }
 
 // --- SIGNUP PAGE LOGIC ---
