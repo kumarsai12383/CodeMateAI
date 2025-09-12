@@ -1,0 +1,144 @@
+/* Navbar styles */
+.navbar {
+  box-shadow: 0 2px 16px rgba(25, 118, 210, 0.08);
+  background: rgba(216, 234, 254, 0.98) !important;
+  border-bottom: 2px solid #1976d2;
+}
+.navbar-brand img {
+  height: 48px;
+  margin-bottom: 0;
+}
+.navbar-nav .nav-link {
+  color: #041131 !important;
+  font-weight: 500;
+  font-size: 1.08rem;
+  letter-spacing: 0.5px;
+  transition: color 0.2s, background 0.2s;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+}
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+  color: #2698f6 !important;
+  background: rgba(104, 107, 109, 0.12);
+}
+.navbar-toggler {
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+}
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 2px #90caf9;
+}
+body {
+  background: #f5f7fa;
+}
+body {
+  min-height: 200vh;
+
+  margin: 0;
+  font-family: "Segoe UI", "Roboto", Arial, sans-serif;
+  background: linear-gradient(135deg, #2b2d42 0%, #1976d2 100%);
+}
+
+.welcome-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 4px 32px rgba(25, 118, 210, 0.12);
+  padding: 2.5rem 2rem;
+  max-width: 480px;
+  margin: 4rem auto 2rem auto;
+  text-align: center;
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+.welcome-card h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.welcome-card p {
+  font-size: 1.15rem;
+  color: #e3eafc;
+  margin-bottom: 2rem;
+}
+.logo{
+    height: 48px;
+    margin-bottom: 0;
+    border-radius: 10px;
+}
+.navbar-nav {
+    margin-left: auto;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  text-align: right;
+  padding: 1rem 2rem;
+  color: #e3eafc;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.footer a {
+  color: #161f24;
+  margin-left: 2rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.footer a:hover {
+  color: #f0e7e7;
+}
+
+@media (max-width: 900px) {
+  .welcome-card {
+    margin: 2rem 1rem;
+    padding: 1.5rem 1rem;
+    max-width: 98vw;
+  }
+  .footer {
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+}
+.progress-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: #e0e0e0;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.progress-bar-inner {
+  height: 100%;
+  background: #4caf50;
+  width: 100%;
+  transition: width 0.4s;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 260px;
+  width: calc(100% - 260px);
+  background: transparent;
+  text-align: right;
+  padding: 1rem 2rem;
+  color: #888;
+  font-size: 1rem;
+}
+.footer a {
+  color: #eef2f5;
+  margin-left: 2rem;
+  text-decoration: none;
+}
