@@ -23,7 +23,13 @@ export function handleLoginForm(submitCallback) {
       const data = await res.json();
       if (res.ok) {
         showPopup(data.message || "Login successful!", true);
-        // Redirect or further logic here
+        // Redirect to welcome.html with username from backend response
+        setTimeout(() => {
+          const username = data.name || data.username || "User";
+          window.location.href = `welcome.html?username=${encodeURIComponent(
+            username
+          )}`;
+        }, 1200);
       } else {
         showPopup(data.error || "Login failed.", false);
       }
