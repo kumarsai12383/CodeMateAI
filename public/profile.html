@@ -149,7 +149,10 @@
           );
           document.getElementById(
             "profileMsg"
-          ).innerHTML = `<div class='alert alert-success'>Profile saved!<br>Name: ${name}<br>Email: ${email}<br>Phone: ${phone}<br>Bio: ${bio}</div>`;
+          ).innerHTML = `<div class='alert alert-success'>Profile saved!<br>Name: ${name}<br>Email: ${email}<br>Phone: ${phone}<br>Bio: ${bio}<br>Redirecting to Home... </div>`;
+          setTimeout(function () {
+            window.location.href = "welcome.html";
+          }, 2000);
         });
     </script>
   </body>
