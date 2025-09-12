@@ -56,7 +56,7 @@ app.post("/api/login", async (req, res) => {
   try {
     const user = await User.findOne({ email, password });
     if (!user) {
-      return res.status(401).json({ error: "Invalid credentials." });
+      return res.status(401).json({ error: "Looks like you’re new here! Sign up to create your account." });
     }
     res.json({ message: `Login successful, welcome ${user.name}` });
   } catch (err) {
