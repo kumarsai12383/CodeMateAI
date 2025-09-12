@@ -40,6 +40,30 @@ export function handleLoginForm(submitCallback) {
       showPopup("Forgot password clicked. Backend logic needed.", false);
     });
   }
+
+  // Password toggle icon for login
+  const passwordInput = loginForm.querySelector('input[type="password"]');
+  if (passwordInput && !document.getElementById("login-password-toggle")) {
+    const toggleIcon = document.createElement("span");
+    toggleIcon.id = "login-password-toggle";
+    toggleIcon.className = "fa fa-eye-slash password-toggle-icon";
+    toggleIcon.style.position = "absolute";
+    toggleIcon.style.right = "16px";
+    toggleIcon.style.top = "50%";
+    toggleIcon.style.transform = "translateY(-50%)";
+    toggleIcon.style.cursor = "pointer";
+    passwordInput.parentNode.style.position = "relative";
+    passwordInput.parentNode.appendChild(toggleIcon);
+    toggleIcon.addEventListener("click", function () {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleIcon.className = "fa fa-eye password-toggle-icon";
+      } else {
+        passwordInput.type = "password";
+        toggleIcon.className = "fa fa-eye-slash password-toggle-icon";
+      }
+    });
+  }
 }
 
 // --- SIGNUP PAGE LOGIC ---
@@ -73,6 +97,30 @@ export function handleSignupForm(submitCallback) {
       showPopup("Network error. Please try again.", false);
     }
   });
+
+  // Password toggle icon for signup
+  const passwordInput = signupForm.querySelector('input[type="password"]');
+  if (passwordInput && !document.getElementById("signup-password-toggle")) {
+    const toggleIcon = document.createElement("span");
+    toggleIcon.id = "signup-password-toggle";
+    toggleIcon.className = "fa fa-eye-slash password-toggle-icon";
+    toggleIcon.style.position = "absolute";
+    toggleIcon.style.right = "16px";
+    toggleIcon.style.top = "50%";
+    toggleIcon.style.transform = "translateY(-50%)";
+    toggleIcon.style.cursor = "pointer";
+    passwordInput.parentNode.style.position = "relative";
+    passwordInput.parentNode.appendChild(toggleIcon);
+    toggleIcon.addEventListener("click", function () {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleIcon.className = "fa fa-eye password-toggle-icon";
+      } else {
+        passwordInput.type = "password";
+        toggleIcon.className = "fa fa-eye-slash password-toggle-icon";
+      }
+    });
+  }
 }
 
 // --- INIT LOGIC ---
