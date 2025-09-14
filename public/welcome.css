@@ -33,14 +33,13 @@
   box-shadow: 0 0 0 2px #90caf9;
 }
 body {
-  background: #f5f7fa;
+  background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
 }
 body {
-  min-height: 200vh;
+  min-height:auto;
 
   margin: 0;
   font-family: "Segoe UI", "Roboto", Arial, sans-serif;
-  background: linear-gradient(135deg, #2b2d42 0%, #1976d2 100%);
 }
 
 .welcome-card {
@@ -51,7 +50,7 @@ body {
   max-width: 480px;
   margin: 4rem auto 2rem auto;
   text-align: center;
-  color: #fff;
+  color: #1396ee;
   backdrop-filter: blur(4px);
 }
 
@@ -59,22 +58,22 @@ body {
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 1.2rem;
-  color: #fff;
+  color: #1572ed;
   letter-spacing: 1px;
 }
 
 .welcome-card p {
   font-size: 1.15rem;
-  color: #e3eafc;
+  color: #03216d;
   margin-bottom: 2rem;
 }
-.logo{
-    height: 48px;
-    margin-bottom: 0;
-    border-radius: 10px;
+.logo {
+  height: 48px;
+  margin-bottom: 0;
+  border-radius: 10px;
 }
 .navbar-nav {
-    margin-left: auto;
+  margin-left: auto;
 }
 .footer {
   position: fixed;
@@ -125,20 +124,4 @@ body {
   background: #4caf50;
   width: 100%;
   transition: width 0.4s;
-}
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 260px;
-  width: calc(100% - 260px);
-  background: transparent;
-  text-align: right;
-  padding: 1rem 2rem;
-  color: #888;
-  font-size: 1rem;
-}
-.footer a {
-  color: #eef2f5;
-  margin-left: 2rem;
-  text-decoration: none;
 }
