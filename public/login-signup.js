@@ -26,7 +26,7 @@ export function handleLoginForm(submitCallback) {
         // Redirect to welcome.html with username from backend response
         setTimeout(() => {
           const username = data.name || data.username || "User";
-          window.location.href = `welcome.html?username=${encodeURIComponent(
+          window.location.href = `profile.html?username=${encodeURIComponent(
             username
           )}`;
         }, 1200);
