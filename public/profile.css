@@ -202,6 +202,13 @@ body {
   box-shadow: 0 2px 12px rgba(25, 118, 210, 0.12);
   transition: background 0.2s, box-shadow 0.2s;
 }
+.card { border: none; border-radius: 1.5rem; box-shadow: 0 8px 32px rgba(44,
+    62, 80, 0.13); background: #fafdff; } .form-label { color: #1976d2;
+    font-weight: 500; } .form-control:focus { border-color: #1976d2; box-shadow:
+    0 0 0 0.2rem rgba(25, 118, 210, 0.08); } .btn-primary { background:
+    linear-gradient(90deg, #1976d2 0%, #00c6ff 100%); border: none; }
+    .btn-primary:hover { background: linear-gradient(90deg, #0056b3 0%, #00aaff
+    100%); }
 .footer {
   position: fixed;
   bottom: 0;
