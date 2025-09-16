@@ -60,53 +60,84 @@
       </div>
     </nav>
     <div style="height: 70px"></div>
-    <div class="welcome-card text-black" style="max-width: 520px">
-      <h2>User Profile</h2>
-      <form id="profileForm" class=" =text-white mt-4">
-        <div class="mb-3">
-          <label for="profileName" class="form-label">Full Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="profileName"
-            name="name"
-            required
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="min-height: 80vh"
+    >
+      <div
+        class="card shadow-lg p-4"
+        style="
+          max-width: 420px;
+          width: 100%;
+          border-radius: 1.5rem;
+          background: #fafdff;
+        "
+      >
+        <div class="text-center mb-3">
+          <img
+            src="edu_logo-welcome.png"
+            alt="EduSkills Academy"
+            style="width: 100px; margin-bottom: 8px"
           />
         </div>
-        <div class="mb-3">
-          <label for="profileEmail" class="form-label">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="profileEmail"
-            name="email"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="profilePhone" class="form-label">Phone</label>
-          <input
-            type="tel"
-            class="form-control"
-            id="profilePhone"
-            name="phone"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="profileBio" class="form-label">Bio</label>
-          <textarea
-            class="form-control"
-            id="profileBio"
-            name="bio"
-            rows="3"
-          ></textarea>
-        </div>
-        <button type="submit" class="btn text-white btn-submit w-100">
-          Save Profile
-        </button>
-      </form>
-      <div id="profileMsg" class="mt-3"></div>
+        <h2 class="mb-3 text-center" style="color: #1976d2; font-weight: 700">
+          User Profile
+        </h2>
+        <form id="profileForm" class="mt-3">
+          <div class="mb-3">
+            <label for="profileName" class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              id="profileName"
+              name="name"
+              required
+              style="background: #f0f4fa"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="profileEmail" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control rounded-pill"
+              id="profileEmail"
+              name="email"
+              required
+              style="background: #f0f4fa"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="profilePhone" class="form-label">Phone</label>
+            <input
+              type="tel"
+              class="form-control rounded-pill"
+              id="profilePhone"
+              name="phone"
+              style="background: #f0f4fa"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="profileBio" class="form-label">Bio</label>
+            <textarea
+              class="form-control"
+              id="profileBio"
+              name="bio"
+              rows="3"
+              style="background: #f0f4fa; border-radius: 1rem"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary w-100 rounded-pill"
+            style="font-weight: 600; font-size: 1.1rem"
+          >
+            Save Profile
+          </button>
+        </form>
+        <div id="profileMsg" class="mt-3"></div>
+      </div>
     </div>
+     
     <footer class="footer">
       © 2025, <strong>CodeMateAI Foundation</strong>
     </footer>
