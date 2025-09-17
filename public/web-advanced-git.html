@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Git & GitHub Essentials</title>
+    <link rel="icon" type="image/png" href="edu_logo-welcome.png" />
+    <link rel="stylesheet" href="welcome.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <style>
+      #git-quiz-section {
+        margin-left: 260px;
+        max-width: 700px;
+      }
+      @media (max-width: 768px) {
+        #git-quiz-section {
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+      }
+      body {
+        background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+        min-height: 100vh;
+      }
+      h1 {
+        font-weight: 700;
+        color: #2c3e50;
+        letter-spacing: 1px;
+      }
+      .btn-primary {
+        background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+        border: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.12);
+      }
+      .btn-primary:hover {
+        background: linear-gradient(90deg, #0056b3 0%, #00aaff 100%);
+      }
+      .sidebar-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 240px;
+        background: #fff;
+        border-right: 1px solid #e0e0e0;
+        z-index: 1040;
+        transition: transform 0.3s ease;
+      }
+      @media (max-width: 767.98px) {
+        .sidebar-menu {
+          transform: translateX(-100%);
+        }
+        .sidebar-menu.active {
+          transform: translateX(0);
+        }
+        main {
+          padding-top: 56px !important;
+        }
+      }
+      @media (min-width: 768px) {
+        .sidebar-menu {
+          transform: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid" style="background: #f5f7fa; min-height: 100vh">
+      <div class="row">
+        <!-- Sidebar: Responsive, custom toggle -->
+        <div id="sidebarMenu" class="sidebar-menu">
+          <div
+            class="sidebar-header d-flex d-md-none justify-content-between align-items-center px-3 py-2"
+            style="border-bottom: 1px solid #e0e0e0"
+          >
+            <span style="font-weight: 600; color: #1976d2"></span>
+            <button
+              id="sidebarClose"
+              class="btn btn-sm btn-outline-secondary"
+              aria-label="Close sidebar"
+            >
+              <i class="fa fa-times" style="font-size: 1.5rem"></i>
+            </button>
+          </div>
+          <div class="d-flex flex-column align-items-center mb-4 pt-3">
+            <img
+              src="edu_logo-welcome.png"
+              alt="EduSkills Academy"
+              style="width: 120px"
+            />
+          </div>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+              <span
+                class="nav-link"
+                style="
+                  color: #34495e;
+                  font-weight: 600;
+                  background: #e3eafc;
+                  border-radius: 8px;
+                "
+                >Web Development - Advanced Courses</span
+              >
+            </li>
+            <li class="nav-item mb-2">
+              <a
+                class="nav-link"
+                style="color: #1976d2; font-weight: 500"
+                href="web-advanced-nodejs.html"
+                >Node.js Advanced</a
+              >
+            </li>
+            <li class="nav-item mb-2">
+              <a
+                class="nav-link"
+                style="color: #1976d2; font-weight: 500"
+                href="web-advanced-mongodb.html"
+                >MongoDB Advanced</a
+              >
+            </li>
+            <li class="nav-item mb-2">
+              <a
+                class="nav-link"
+                style="
+                  color: #34495e;
+                  font-weight: 600;
+                  background: #e3eafc;
+                  border-radius: 8px;
+                "
+                href="web-advanced-git.html"
+                >Git & GitHub Essentials</a
+              >
+            </li>
+          </ul>
+          <div
+            class="px-3 pb-3"
+            style="position: absolute; bottom: 0; left: 0; width: 100%"
+          >
+            <label
+              for="gitProgressBar"
+              style="font-size: 0.95rem; color: #1976d2; font-weight: 500"
+              >Git Progress</label
+            >
+            <div
+              class="progress"
+              style="height: 18px; background: #e3eafc; border-radius: 8px"
+            >
+              <div
+                id="gitProgressBar"
+                class="progress-bar bg-success"
+                role="progressbar"
+                style="width: 0%; border-radius: 8px; font-weight: 600"
+                aria-valuenow="0"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                0%
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Topbar for mobile toggle -->
+        <header
+          class="navbar navbar-light bg-white d-md-none px-3"
+          style="border-bottom: 1px solid #e0e0e0"
+        >
+          <button
+            class="navbar-toggler"
+            type="button"
+            id="sidebarToggle"
+            aria-label="Toggle navigation"
+            style="display: inline-block"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </header>
+        <!-- Main Content -->
+        <main
+          class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-5"
+          style="margin-left: auto"
+        >
+          <div
+            class="d-flex align-items-center justify-content-center mt-2 mb-2"
+            style="font-size: 1rem; color: #d97706"
+          >
+            <span
+              class="me-2"
+              style="display: inline-block; vertical-align: middle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-exclamation-circle"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                />
+                <path
+                  d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"
+                />
+              </svg>
+            </span>
+            <span style="font-size: 0.98rem"
+              >Get your certificate after completing all courses</span
+            >
+          </div>
+          <h1 class="mb-4 text-center d-md-block">Git & GitHub Essentials</h1>
+          <div class="d-flex justify-content-center mb-4">
+            <div
+              style="
+                border-radius: 1rem;
+                box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
+                overflow: hidden;
+                background: #fff;
+                width: 100vw;
+                max-width: 100vw;
+                margin-left: -12px;
+              "
+            >
+              <video
+                id="courseVideo"
+                src="git-github-demo.mp4"
+                loop
+                muted
+                playsinline
+                style="
+                  width: 100%;
+                  max-width: 700px;
+                  height: auto;
+                  margin-left: auto;
+                  margin-right: auto;
+                  display: block;
+                  background: #222;
+                  border-radius: 1rem;
+                  box-shadow: 0 4px 24px rgba(44, 62, 80, 0.12);
+                "
+              >
+                Sorry, your browser does not support embedded videos.
+              </video>
+              <div
+                class="text-center py-2"
+                style="font-weight: 600; color: #1976d2; font-size: 1.1rem"
+              >
+                Your 3D AI Professor
+              </div>
+              <div class="d-flex justify-content-center gap-2 mb-3">
+                <button id="startCourseBtn" class="btn btn-success">
+                  <i class="fa fa-play"></i> Start Course
+                </button>
+                <button id="stopCourseBtn" class="btn btn-danger">
+                  <i class="fa fa-stop"></i> Stop Course
+                </button>
+              </div>
+              <div id="gitTranscript" class="p-3">
+                <h2>Git & GitHub Essentials</h2>
+                <p><strong>What you'll learn:</strong></p>
+                <ul>
+                  <li>
+                    <strong>Version Control Basics:</strong> Understand
+                    repositories, commits, branches, and merges.
+                  </li>
+                  <li>
+                    <strong>Essential Git Commands:</strong>
+                    <code>git init</code>, <code>git add</code>,
+                    <code>git commit</code>, <code>git status</code>,
+                    <code>git log</code>, <code>git branch</code>,
+                    <code>git merge</code>, <code>git clone</code>,
+                    <code>git pull</code>, <code>git push</code>.
+                  </li>
+                  <li>
+                    <strong>Working with GitHub:</strong> Creating repositories,
+                    pushing code, pull requests, forking, and collaboration.
+                  </li>
+                  <li>
+                    <strong>.gitignore:</strong> Excluding files and folders
+                    from version control.
+                  </li>
+                  <li>
+                    <strong>Resolving Conflicts:</strong> How to handle merge
+                    conflicts and best practices.
+                  </li>
+                  <li>
+                    <strong>Collaboration:</strong> Forking, cloning, branching,
+                    and submitting pull requests.
+                  </li>
+                  <li>
+                    <strong>Best Practices:</strong> Commit messages, branching
+                    strategies, and code reviews.
+                  </li>
+                </ul>
+                <h3 class="mt-4" style="color: #1976d2">
+                  Recommended Git & GitHub Resources
+                </h3>
+                <ul>
+                  <li>
+                    <a
+                      href="https://git-scm.com/doc"
+                      target="_blank"
+                      rel="noopener"
+                      style="color: #007bff"
+                      >Git Official Documentation</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://docs.github.com/en"
+                      target="_blank"
+                      rel="noopener"
+                      style="color: #007bff"
+                      >GitHub Docs</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.freecodecamp.org/news/git-and-github-for-beginners/"
+                      target="_blank"
+                      rel="noopener"
+                      style="color: #007bff"
+                      >freeCodeCamp: Git & GitHub for Beginners</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.codecademy.com/learn/learn-git"
+                      target="_blank"
+                      rel="noopener"
+                      style="color: #007bff"
+                      >Codecademy: Learn Git</a
+                    >
+                  </li>
+                </ul>
+                <h3 class="mt-4" style="color: #1976d2">Tips for Success</h3>
+                <ul>
+                  <li>Practice using Git commands in your terminal.</li>
+                  <li>
+                    Work on collaborative projects to get comfortable with pull
+                    requests and conflict resolution.
+                  </li>
+                  <li>
+                    Write clear commit messages and use branches for features
+                    and bug fixes.
+                  </li>
+                  <li>Explore GitHub Actions for automation and CI/CD.</li>
+                </ul>
+              </div>
+              <div
+                id="nextBtnContainer"
+                class="text-center mt-4"
+                style="display: none"
+              >
+                <a href="welcome.html" id="nextBtn" class="btn btn-primary"
+                  >Finish</a
+                >
+              </div>
+              <script>
+                function speakTranscriptWithLadyVoice() {
+                  const transcriptDiv =
+                    document.getElementById("gitTranscript");
+                  let textNodes = [];
+                  function collectTextNodes(node) {
+                    if (node.nodeType === 3 && node.textContent.trim()) {
+                      textNodes.push(node);
+                    } else if (node.nodeType === 1) {
+                      node.childNodes.forEach(collectTextNodes);
+                    }
+                  }
+                  collectTextNodes(transcriptDiv);
+                  let fullText = textNodes.map((n) => n.textContent).join(" ");
+                  const utterance = new window.SpeechSynthesisUtterance(
+                    fullText
+                  );
+                  utterance.rate = 1;
+                  utterance.pitch = 1;
+                  utterance.lang = "en-US";
+                  function setLadyVoiceAndSpeak() {
+                    const voices = window.speechSynthesis.getVoices();
+                    const ladyVoice = voices.find(
+                      (v) =>
+                        v.lang.startsWith("en") &&
+                        v.name &&
+                        (v.name.toLowerCase().includes("female") ||
+                          v.name.toLowerCase().includes("woman") ||
+                          v.name.toLowerCase().includes("samantha") ||
+                          v.name.toLowerCase().includes("victoria") ||
+                          v.name.toLowerCase().includes("susan") ||
+                          v.name.toLowerCase().includes("zira") ||
+                          v.name.toLowerCase().includes("eva") ||
+                          v.name.toLowerCase().includes("emma") ||
+                          v.name
+                            .toLowerCase()
+                            .includes("google uk english female"))
+                    );
+                    if (ladyVoice) utterance.voice = ladyVoice;
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.speak(utterance);
+                  }
+                  utterance.onend = function () {
+                    document.getElementById("nextBtnContainer").style.display =
+                      "block";
+                    const progressBar =
+                      document.getElementById("gitProgressBar");
+                    progressBar.style.width = "100%";
+                    progressBar.setAttribute("aria-valuenow", 100);
+                    progressBar.textContent = "100%";
+                  };
+                  if (window.speechSynthesis.getVoices().length === 0) {
+                    window.speechSynthesis.onvoiceschanged =
+                      setLadyVoiceAndSpeak;
+                    window.speechSynthesis.getVoices();
+                  } else {
+                    setLadyVoiceAndSpeak();
+                  }
+                }
+                // Add highlight style
+                const style = document.createElement("style");
+                style.textContent =
+                  ".tts-highlight { background: #ffe066; color: #222; border-radius: 3px; padding: 0 2px; }";
+                document.head.appendChild(style);
+
+                // Start/Stop Course buttons logic
+                const video = document.getElementById("courseVideo");
+                window.addEventListener("DOMContentLoaded", function () {
+                  if (video) {
+                    video.pause();
+                  }
+                });
+                document.getElementById("startCourseBtn").onclick =
+                  function () {
+                    if (video) {
+                      video.muted = true;
+                      video.play();
+                    }
+                    speakTranscriptWithLadyVoice();
+                    document.getElementById("nextBtnContainer").style.display =
+                      "none";
+                    const progressBar =
+                      document.getElementById("gitProgressBar");
+                    progressBar.style.width = "0%";
+                    progressBar.setAttribute("aria-valuenow", 0);
+                    progressBar.textContent = "0%";
+                  };
+                document.getElementById("stopCourseBtn").onclick = function () {
+                  if (video) {
+                    video.pause();
+                  }
+                  window.speechSynthesis.cancel();
+                };
+              </script>
+            </div>
+          </div>
+          <div class="row g-4">
+            <!-- Git & GitHub Quiz -->
+            <section id="git-quiz-section" class="mt-5">
+              <h2 class="mb-3 text-center" style="color: #1976d2">
+                Git & GitHub Quiz
+              </h2>
+              <form id="advancedQuizForm">
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">1. What is Git?</div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q1"
+                      id="q1a1"
+                      value="0"
+                    />
+                    <label class="form-check-label" for="q1a1"
+                      >A programming language</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q1"
+                      id="q1a2"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="q1a2"
+                      >A version control system</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q1"
+                      id="q1a3"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="q1a3"
+                      >A database</label
+                    >
+                  </div>
+                  <div
+                    class="text-danger small mt-1"
+                    id="hint1"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">
+                    2. Which command initializes a new Git repository?
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q2"
+                      id="q2a1"
+                      value="0"
+                    />
+                    <label class="form-check-label" for="q2a1">git start</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q2"
+                      id="q2a2"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="q2a2">git init</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q2"
+                      id="q2a3"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="q2a3">git new</label>
+                  </div>
+                  <div
+                    class="text-danger small mt-1"
+                    id="hint2"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">3. What does 'git clone' do?</div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q3"
+                      id="q3a1"
+                      value="0"
+                    />
+                    <label class="form-check-label" for="q3a1"
+                      >Deletes a repository</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q3"
+                      id="q3a2"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="q3a2"
+                      >Copies a repository</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q3"
+                      id="q3a3"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="q3a3"
+                      >Updates a repository</label
+                    >
+                  </div>
+                  <div
+                    class="text-danger small mt-1"
+                    id="hint3"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">
+                    4. Which command stages changes for commit?
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q4"
+                      id="q4a1"
+                      value="0"
+                    />
+                    <label class="form-check-label" for="q4a1"
+                      >git commit</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q4"
+                      id="q4a2"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="q4a2">git add</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q4"
+                      id="q4a3"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="q4a3">git push</label>
+                  </div>
+                  <div
+                    class="text-danger small mt-1"
+                    id="hint4"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">5. What is GitHub?</div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q5"
+                      id="q5a1"
+                      value="0"
+                    />
+                    <label class="form-check-label" for="q5a1"
+                      >A Git command</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q5"
+                      id="q5a2"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="q5a2"
+                      >A code hosting platform</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q5"
+                      id="q5a3"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="q5a3"
+                      >A database</label
+                    >
+                  </div>
+                  <div
+                    class="text-danger small mt-1"
+                    id="hint5"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">
+                    6. Which command uploads commits to GitHub?
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q6"
+                      id="q6a1"
+                      value="0"
+                    />
+                    <label class="form-check-label" for="q6a1">git fetch</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q6"
+                      id="q6a2"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="q6a2">git push</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q6"
+                      id="q6a3"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="q6a3"
+                      >git upload</label
+                    >
+                  </div>
+                  <div
+                    class="text-danger small mt-1"
+                    id="hint6"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">7. What is a pull request?</div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q7"
+                      id="q7a1"
+                      value="0"
+                    />
+                    <label class="form-check-label" for="q7a1"
+                      >A request to merge code</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q7"
+                      id="q7a2"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="q7a2"
+                      >A request to delete code</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q7"
+                      id="q7a3"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="q7a3"
+                      >A request to fork code</label
+                    >
+                  </div>
+                  <div
+                    class="text-danger small mt-1"
+                    id="hint7"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">
+                    8. Which file ignores files from being tracked?
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q8"
+                      id="q8a1"
+                      value="0"
+                    />
+                    <label class="form-check-label" for="q8a1"
+                      >.gitignore</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q8"
+                      id="q8a2"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="q8a2">.ignore</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q8"
+                      id="q8a3"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="q8a3">.gittrack</label>
+                  </div>
+                  <div
+                    class="text-danger small mt-1"
+                    id="hint8"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">
+                    9. Which command shows commit history?
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q9"
+                      id="q9a1"
+                      value="0"
+                    />
+                    <label class="form-check-label" for="q9a1"
+                      >git status</label
+                    >
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q9"
+                      id="q9a2"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="q9a2">git log</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="q9"
+                      id="q9a3"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="q9a3"
+                      >git history</label
+                    >
+                  </div>
+                  <div
+                    class="text-danger small mt-1"
+                    id="hint9"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div class="text-center mb-4">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="submitQuizBtn"
+                  >
+                    Submit Answers
+                  </button>
+                </div>
+                <div id="quizResult" class="mt-3 text-center"></div>
+              </form>
+            </section>
+          </div>
+          <div class="d-flex justify-content-end flex-row fixed-bottom p-3">
+            <a href="welcome.html" class="btn btn-primary">Back to Home</a>
+          </div>
+          <footer
+            class="text-secondary text-center py-3"
+            style="
+              background: #fff;
+              border-top: 1px solid #e0e0e0;
+              margin-top: 2rem;
+            "
+          >
+            © 2025, <strong>CodeMateAI Foundation</strong>
+          </footer>
+        </main>
+      </div>
+    </div>
+    <script>
+      // Sidebar toggle for mobile
+      document.addEventListener("DOMContentLoaded", function () {
+        var sidebar = document.getElementById("sidebarMenu");
+        var toggleBtn = document.getElementById("sidebarToggle");
+        var closeBtn = document.getElementById("sidebarClose");
+        if (toggleBtn && sidebar) {
+          toggleBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            sidebar.classList.add("active");
+            toggleBtn.style.display = "none";
+          });
+        }
+        if (closeBtn && sidebar) {
+          closeBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            sidebar.classList.remove("active");
+            toggleBtn.style.display = "inline-block";
+          });
+        }
+        var navLinks = sidebar.querySelectorAll(".nav-link");
+        navLinks.forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 768) {
+              sidebar.classList.remove("active");
+              toggleBtn.style.display = "inline-block";
+            }
+          });
+        });
+      });
+
+      // Sidebar progress logic for all advanced courses
+      document.addEventListener("DOMContentLoaded", function () {
+        const courseMap = {
+          "web-advanced-nodejs.html": "nodejs",
+          "web-advanced-mongodb.html": "mongodb",
+          "web-advanced-git.html": "git",
+        };
+        let allProgress = {};
+        try {
+          allProgress = JSON.parse(
+            localStorage.getItem("allQuizProgress") || "{}"
+          );
+        } catch (e) {
+          allProgress = {};
+        }
+        const advanced = allProgress["advanced"] || {};
+        Object.entries(courseMap).forEach(([href, key]) => {
+          const link = document.querySelector(`a[href='${href}']`);
+          if (!link) return;
+          if (advanced[key] && advanced[key].completed) {
+            link.style.background = "#d1fae5";
+            link.style.color = "#059669";
+            link.style.fontWeight = "700";
+            link.style.borderRadius = "8px";
+            if (!link.querySelector(".quiz-complete-tick")) {
+              const tick = document.createElement("span");
+              tick.className = "quiz-complete-tick ms-2";
+              tick.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check2' viewBox='0 0 16 16'><path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0'/></svg>`;
+              link.appendChild(tick);
+            }
+          } else {
+            link.style.background = "";
+            link.style.color = "#1976d2";
+            link.style.fontWeight = "500";
+            link.style.borderRadius = "";
+            const tick = link.querySelector(".quiz-complete-tick");
+            if (tick) tick.remove();
+          }
+        });
+
+        // Quiz logic
+        document.getElementById("advancedQuizForm").onsubmit = function (e) {
+          e.preventDefault();
+          let score = 0;
+          // Correct answers: 1,1,1,1,1,1,0,0,1
+          const answers = ["1", "1", "1", "1", "1", "1", "0", "0", "1"];
+          let progress = {};
+          for (let i = 1; i <= 9; i++) {
+            const selected = document.querySelector(
+              'input[name="q' + i + '"]:checked'
+            );
+            const hint = document.getElementById("hint" + i);
+            if (hint) hint.style.display = "none";
+            if (!selected) {
+              if (hint) hint.style.display = "block";
+            } else if (selected.value === answers[i - 1]) {
+              score++;
+              progress["q" + i] = selected.value;
+            } else {
+              if (hint) hint.style.display = "block";
+              progress["q" + i] = selected.value;
+            }
+          }
+          const resultDiv = document.getElementById("quizResult");
+          if (score === 9) {
+            resultDiv.innerHTML = `<span class='fw-bold text-success'>All answers correct! 🎉</span>`;
+            progress.completed = true;
+            // Make sidebar link green and add tick
+            const gitLink = document.querySelector(
+              "a[href='web-advanced-git.html']"
+            );
+            if (gitLink) {
+              gitLink.style.background = "#d1fae5";
+              gitLink.style.color = "#059669";
+              gitLink.style.fontWeight = "700";
+              gitLink.style.borderRadius = "8px";
+              if (!gitLink.querySelector(".quiz-complete-tick")) {
+                const tick = document.createElement("span");
+                tick.className = "quiz-complete-tick ms-2";
+                tick.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check2' viewBox='0 0 16 16'><path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0'/></svg>`;
+                gitLink.appendChild(tick);
+              }
+            }
+            // Show Next button
+            var nextBtn = document.getElementById("nextBtnContainer");
+            if (nextBtn) nextBtn.style.display = "block";
+          } else {
+            resultDiv.innerHTML = `<span class='fw-bold text-danger'>You scored ${score} out of 9. See hints above.</span>`;
+            var nextBtn = document.getElementById("nextBtnContainer");
+            if (nextBtn) nextBtn.style.display = "none";
+          }
+          // Store progress
+          let allProgress = {};
+          try {
+            allProgress = JSON.parse(
+              localStorage.getItem("allQuizProgress") || "{}"
+            );
+          } catch (e) {
+            allProgress = {};
+          }
+          if (!allProgress.advanced) allProgress.advanced = {};
+          allProgress.advanced.git = progress;
+          localStorage.setItem("allQuizProgress", JSON.stringify(allProgress));
+        };
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

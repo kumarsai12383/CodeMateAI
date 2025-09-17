@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeMateAI</title>
+    <link rel="icon" type="image/png" href="edu_logo-welcome.png" />
+    <link rel="stylesheet" href="welcome.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    />
+    <style>
+      /* Responsive quiz section margin */
+      #html-quiz-section {
+        margin-left: 260px;
+        max-width: 700px;
+      }
+      @media (max-width: 768px) {
+        #html-quiz-section {
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+      }
+      body {
+        background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+        min-height: 100vh;
+      }
+      h1 {
+        font-weight: 700;
+        color: #2c3e50;
+        letter-spacing: 1px;
+      }
+      .card {
+        border: none;
+        border-radius: 1rem;
+        transition: transform 0.2s, box-shadow 0.2s;
+        background: #fff;
+      }
+      .card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
+      }
+      .card-title {
+        color: #007bff;
+        font-weight: 600;
+        font-size: 1.25rem;
+      }
+      .card-text {
+        color: #34495e;
+        font-size: 1rem;
+      }
+      .btn-primary {
+        background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+        border: none;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.12);
+      }
+      .btn-primary:hover {
+        background: linear-gradient(90deg, #0056b3 0%, #00aaff 100%);
+      }
+      .row.g-4 {
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var sidebar = document.getElementById("sidebarMenu");
+        var closeBtn = document.getElementById("sidebarClose");
+        var toggleBtn = document.querySelector(".navbar-toggler");
+        // Only toggle sidebar on mobile
+        function isMobile() {
+          return window.innerWidth < 768;
+        }
+        if (toggleBtn && sidebar) {
+          toggleBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (isMobile()) {
+              sidebar.classList.add("active");
+            }
+          });
+        }
+        if (closeBtn && sidebar) {
+          closeBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (isMobile()) {
+              sidebar.classList.remove("active");
+            }
+          });
+        }
+        // Close sidebar when clicking a nav link (mobile only)
+        var navLinks = sidebar.querySelectorAll(".nav-link");
+        navLinks.forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (isMobile()) {
+              sidebar.classList.remove("active");
+            }
+          });
+        });
+      });
+    </script>
+    <div class="container-fluid" style="background: #f5f7fa; min-height: 100vh">
+      <div class="row">
+        <!-- Sidebar: Responsive, custom toggle -->
+        <div id="sidebarMenu" class="sidebar-menu">
+          <div
+            class="sidebar-header d-flex d-md-none justify-content-between align-items-center px-3 py-2"
+            style="border-bottom: 1px solid #e0e0e0"
+          >
+            <span style="font-weight: 600; color: #1976d2"></span>
+            <button
+              id="sidebarClose"
+              class="btn btn-sm btn-outline-secondary"
+              aria-label="Close sidebar"
+            >
+              <i class="fa fa-times" style="font-size: 1.5rem"></i>
+            </button>
+          </div>
+          <div class="d-flex flex-column align-items-center mb-4 pt-3">
+            <img
+              src="edu_logo-welcome.png"
+              alt="EduSkills Academy"
+              style="width: 120px"
+            />
+          </div>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+              <span
+                class="nav-link"
+                style="color: #34495e; font-weight: 600; background: #e3eafc; border-radius: 8px;"
+              >Web Development - Beginner Courses</span>
+            </li>
+            <li class="nav-item mb-2">
+              <a
+                class="nav-link"
+                style="color: #34495e; font-weight: 600; background: #e3eafc; border-radius: 8px;"
+                href="web-beginner-html.html"
+              >HTML-beginner</a>
+            </li>
+      
+            <li class="nav-item mb-2">
+              <a
+                class="nav-link"
+                style="color: #1976d2; font-weight: 500"
+                href="web-beginner-css.html"
+              >CSS-beginner</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a
+                class="nav-link"
+                style="color: #1976d2; font-weight: 500"
+                href="web-beginner-js.html"
+              >JavaScript-beginner</a>
+            </li>
+          </ul>
+          <div class="px-3 pb-3" style="position: absolute; bottom: 0; left: 0; width: 100%;">
+            <label for="htmlProgressBar" style="font-size: 0.95rem; color: #1976d2; font-weight: 500;">HTML Progress</label>
+            <div class="progress" style="height: 18px; background: #e3eafc; border-radius: 8px;">
+              <div id="htmlProgressBar" class="progress-bar bg-success" role="progressbar" style="width: 0%; border-radius: 8px; font-weight: 600;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+            </div>
+          </div>
+        </div>
+        <!-- Topbar for mobile toggle -->
+        <header
+          class="navbar navbar-light bg-white d-md-none px-3"
+          style="border-bottom: 1px solid #e0e0e0"
+        >
+          <button
+            class="navbar-toggler"
+            type="button"
+            id="sidebarToggle"
+            aria-label="Toggle navigation"
+            style="display: inline-block"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+        </header>
+        <style>
+          .sidebar-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 240px;
+            background: #fff;
+            border-right: 1px solid #e0e0e0;
+            z-index: 1040;
+            transition: transform 0.3s ease;
+          }
+          @media (max-width: 767.98px) {
+            .sidebar-menu {
+              transform: translateX(-100%);
+            }
+            .sidebar-menu.active {
+              transform: translateX(0);
+            }
+            main {
+              padding-top: 56px !important;
+            }
+          }
+          @media (min-width: 768px) {
+            .sidebar-menu {
+              transform: none !important;
+            }
+          }
+        </style>
+        <script>
+          // Sidebar toggle for mobile
+          document.addEventListener("DOMContentLoaded", function () {
+            var sidebar = document.getElementById("sidebarMenu");
+            var toggleBtn = document.getElementById("sidebarToggle");
+            var closeBtn = document.getElementById("sidebarClose");
+            if (toggleBtn && sidebar) {
+              toggleBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                sidebar.classList.add("active");
+                toggleBtn.style.display = "none";
+              });
+            }
+            if (closeBtn && sidebar) {
+              closeBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                sidebar.classList.remove("active");
+                toggleBtn.style.display = "inline-block";
+              });
+            }
+            // Close sidebar when clicking a nav link (mobile only)
+            var navLinks = sidebar.querySelectorAll(".nav-link");
+            navLinks.forEach(function (link) {
+              link.addEventListener("click", function () {
+                if (window.innerWidth < 768) {
+                  sidebar.classList.remove("active");
+                  toggleBtn.style.display = "inline-block";
+                }
+              });
+            });
+          });
+        </script>
+        <!-- Main Content -->
+        <main
+          class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-5 "
+          style="margin-left: auto"
+        >
+         <div class="d-flex align-items-center justify-content-center mt-2 mb-2" style="font-size: 1rem; color: #d97706;">
+              <span class="me-2" style="display: inline-block; vertical-align: middle;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                </svg>
+              </span>
+              <span style="font-size: 0.98rem;">Get your certificate after completing all courses</span>
+            </div>
+          <h1 class="mb-4 text-center  d-md-block">Web Development Courses - Beginner</h1>
+          <div class="d-flex justify-content-center mb-4">
+            <div style="border-radius: 1rem; box-shadow: 0 8px 32px rgba(44,62,80,0.15); overflow: hidden; background: #fff; width: 100vw; max-width: 100vw; margin-left: -12px;">
+              <video id="courseVideo" src="AI edu - Made with Clipchamp.mp4" loop muted playsinline style="width:100%; max-width:700px; height:auto; margin-left:auto; margin-right:auto; display:block; background:#222; border-radius:1rem; box-shadow:0 4px 24px rgba(44,62,80,0.12);">
+                Sorry, your browser does not support embedded videos.
+              </video>
+              <div class="text-center py-2" style="font-weight: 600; color: #1976d2; font-size: 1.1rem;">Your 3D AI Professor</div>
+              <div class="d-flex justify-content-center gap-2 mb-3">
+                <button id="startCourseBtn" class="btn btn-success"><i class="fa fa-play"></i> Start Course</button>
+                <button id="stopCourseBtn" class="btn btn-danger"><i class="fa fa-stop"></i> Stop Course</button>
+              </div>
+              <div id="htmlTranscript" class="p-3">
+                <h2>HTML Beginner Course</h2>
+                <p><strong>Introduction to HTML:</strong> HTML (HyperText Markup Language) is the standard markup language for creating web pages. It structures content using elements like headings, paragraphs, links, images, lists, tables, forms, and more.</p>
+                <ul>
+                    <li><strong>HTML Basics:</strong> <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code><br>
+                <span class="text-secondary">These tags define the structure of every HTML document. <code>&lt;!DOCTYPE html&gt;</code> declares the document type, <code>&lt;html&gt;</code> wraps all content, <code>&lt;head&gt;</code> contains metadata, and <code>&lt;body&gt;</code> holds visible content.</span>
+              </li>
+              <li><strong>Text Elements:</strong> <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> (headings), <code>&lt;p&gt;</code> (paragraph), <code>&lt;span&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code><br>
+                <span class="text-secondary">Use these tags to organize and emphasize text. Headings create structure, <code>&lt;p&gt;</code> defines paragraphs, <code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code> add importance and emphasis.</span>
+              </li>
+              <li><strong>Links & Images:</strong> <code>&lt;a href="..."&gt;</code> (anchor), <code>&lt;img src="..." alt="..."&gt;</code><br>
+                <span class="text-secondary">Links connect pages and resources, while images add visual interest. Always use <code>alt</code> text for accessibility.</span>
+              </li>
+              <li><strong>Lists:</strong> <code>&lt;ul&gt;</code> (unordered), <code>&lt;ol&gt;</code> (ordered), <code>&lt;li&gt;</code> (list item)<br>
+                <span class="text-secondary">Lists help organize information. Use unordered lists for bullet points and ordered lists for numbered steps.</span>
+              </li>
+              <li><strong>Tables:</strong> <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code><br>
+                <span class="text-secondary">Tables display data in rows and columns. Use <code>&lt;th&gt;</code> for headers and <code>&lt;td&gt;</code> for data cells.</span>
+              </li>
+              <li><strong>Forms:</strong> <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;label&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code><br>
+                <span class="text-secondary">Forms collect user input. Use labels for accessibility and different input types for text, choices, and actions.</span>
+              </li>
+              <li><strong>Semantic Elements:</strong> <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code><br>
+                <span class="text-secondary">Semantic tags describe the meaning of content, improving SEO and accessibility. They help browsers and assistive technologies understand page structure.</span>
+              </li>
+              <li><strong>Media:</strong> <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;iframe&gt;</code><br>
+                <span class="text-secondary">Media elements embed sound, video, and external content. Use them to make your site interactive and engaging.</span>
+              </li>
+              <li><strong>Meta & SEO:</strong> <code>&lt;meta&gt;</code> tags, <code>&lt;title&gt;</code>, <code>&lt;link&gt;</code> for CSS/JS<br>
+                <span class="text-secondary">Meta tags provide information about your page to browsers and search engines. <code>&lt;title&gt;</code> sets the page name, and <code>&lt;link&gt;</code> connects stylesheets and scripts.</span>
+              </li>
+            </ul>
+            <h3 class="mt-4" style="color: #1976d2;">Recommended HTML Learning Portals</h3>
+            <ul>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener" style="color: #007bff;">MDN Web Docs: HTML</a></li>
+              <li><a href="https://www.w3schools.com/html/" target="_blank" rel="noopener" style="color: #007bff;">W3Schools: HTML Tutorial</a></li>
+              <li><a href="https://www.freecodecamp.org/news/html-crash-course/" target="_blank" rel="noopener" style="color: #007bff;">freeCodeCamp: HTML Crash Course</a></li>
+              <li><a href="https://www.html.com/" target="_blank" rel="noopener" style="color: #007bff;">HTML.com: Beginner's Guide</a></li>
+              <li><a href="https://www.codecademy.com/learn/learn-html" target="_blank" rel="noopener" style="color: #007bff;">Codecademy: Learn HTML</a></li>
+            </ul>
+            <h3 class="mt-4" style="color: #1976d2;">Tips for Success</h3>
+            <ul>
+              <li>Practice by building simple web pages and experimenting with different elements.</li>
+              <li>Validate your HTML using <a href="https://validator.w3.org/" target="_blank" rel="noopener" style="color: #007bff;">W3C Validator</a>.</li>
+              <li>Explore browser developer tools to inspect and debug HTML structure.</li>
+              <li>Combine HTML with CSS and JavaScript for interactive, styled websites.</li>
+            </ul>
+              </div>
+                <!-- more transcript content -->
+              </div>
+              <div id="nextBtnContainer" class="text-center mt-4" style="display:none;">
+                <a href="web-beginner-css.html" id="nextBtn" class="btn btn-primary">Next</a>
+              </div>
+              <script>
+                function speakTranscriptWithLadyVoice() {
+                  const transcriptDiv = document.getElementById('htmlTranscript');
+                  // Get all transcript text nodes
+                  let textNodes = [];
+                  function collectTextNodes(node) {
+                    if (node.nodeType === 3 && node.textContent.trim()) {
+                      textNodes.push(node);
+                    } else if (node.nodeType === 1) {
+                      node.childNodes.forEach(collectTextNodes);
+                    }
+                  }
+                  collectTextNodes(transcriptDiv);
+                  // Build full text
+                  let fullText = textNodes.map(n => n.textContent).join(' ');
+                  const utterance = new window.SpeechSynthesisUtterance(fullText);
+                  utterance.rate = 1;
+                  utterance.pitch = 1;
+                  utterance.lang = 'en-US';
+                  function setLadyVoiceAndSpeak() {
+                    const voices = window.speechSynthesis.getVoices();
+                    const ladyVoice = voices.find(v => v.lang.startsWith('en') && v.name && (
+                      v.name.toLowerCase().includes('female') ||
+                      v.name.toLowerCase().includes('woman') ||
+                      v.name.toLowerCase().includes('samantha') ||
+                      v.name.toLowerCase().includes('victoria') ||
+                      v.name.toLowerCase().includes('susan') ||
+                      v.name.toLowerCase().includes('zira') ||
+                      v.name.toLowerCase().includes('eva') ||
+                      v.name.toLowerCase().includes('emma') ||
+                      v.name.toLowerCase().includes('google uk english female')
+                    ));
+                    if (ladyVoice) utterance.voice = ladyVoice;
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.speak(utterance);
+                  }
+                  // Highlight words as spoken and update progress bar
+                  utterance.onboundary = function(event) {
+                    if (event.name === 'word') {
+                      let charIndex = event.charIndex;
+                      let wordLength = event.charLength || (event.utterance.text.split(' ')[event.charIndex] || '').length;
+                      // Remove previous highlights
+                      transcriptDiv.querySelectorAll('.tts-highlight').forEach(el => {
+                        el.classList.remove('tts-highlight');
+                      });
+                      // Find and highlight the word
+                      let count = 0;
+                      for (let node of textNodes) {
+                        let nodeText = node.textContent;
+                        if (charIndex < count + nodeText.length) {
+                          let relIdx = charIndex - count;
+                          let before = nodeText.slice(0, relIdx);
+                          let word = nodeText.slice(relIdx, relIdx + wordLength);
+                          let after = nodeText.slice(relIdx + wordLength);
+                          let span = document.createElement('span');
+                          span.className = 'tts-highlight';
+                          span.textContent = word;
+                          let frag = document.createDocumentFragment();
+                          if (before) frag.appendChild(document.createTextNode(before));
+                          frag.appendChild(span);
+                          if (after) frag.appendChild(document.createTextNode(after));
+                          node.parentNode.replaceChild(frag, node);
+                          break;
+                        }
+                        count += nodeText.length;
+                      }
+                      // Progress bar logic
+                      const progressBar = document.getElementById('htmlProgressBar');
+                      const totalLength = utterance.text.length;
+                      let percent = Math.min(100, Math.round((charIndex / totalLength) * 100));
+                      progressBar.style.width = percent + '%';
+                      progressBar.setAttribute('aria-valuenow', percent);
+                      progressBar.textContent = percent + '%';
+                    }
+                  };
+                  // Remove highlight on end
+                  utterance.onend = function() {
+                    transcriptDiv.querySelectorAll('.tts-highlight').forEach(el => {
+                      el.classList.remove('tts-highlight');
+                    });
+                    document.getElementById('nextBtnContainer').style.display = 'block';
+                    // Fill progress bar to 100%
+                    const progressBar = document.getElementById('htmlProgressBar');
+                    progressBar.style.width = '100%';
+                    progressBar.setAttribute('aria-valuenow', 100);
+                    progressBar.textContent = '100%';
+                  };
+                  // If voices are not loaded yet, wait for them
+                  if (window.speechSynthesis.getVoices().length === 0) {
+                    window.speechSynthesis.onvoiceschanged = setLadyVoiceAndSpeak;
+                    window.speechSynthesis.getVoices();
+                  } else {
+                    setLadyVoiceAndSpeak();
+                  }
+                }
+                // Add highlight style
+                const style = document.createElement('style');
+                style.textContent = '.tts-highlight { background: #ffe066; color: #222; border-radius: 3px; padding: 0 2px; }';
+                document.head.appendChild(style);
+
+                // Start/Stop Course buttons logic
+                const video = document.getElementById('courseVideo');
+                // Pause video on page load
+                window.addEventListener('DOMContentLoaded', function() {
+                  if (video) {
+                    video.pause();
+                  }
+                });
+                document.getElementById('startCourseBtn').onclick = function() {
+                  if (video) {
+                    video.muted = true;
+                    video.play();
+                  }
+                  speakTranscriptWithLadyVoice();
+                  document.getElementById('nextBtnContainer').style.display = 'none';
+                  // Reset progress bar
+                  const progressBar = document.getElementById('htmlProgressBar');
+                  progressBar.style.width = '0%';
+                  progressBar.setAttribute('aria-valuenow', 0);
+                  progressBar.textContent = '0%';
+                };
+                document.getElementById('stopCourseBtn').onclick = function() {
+                  if (video) {
+                    video.pause();
+                  }
+                  window.speechSynthesis.cancel();
+                };
+              </script>
+            </div>
+          </div>
+          <div class="row g-4">
+            <!-- Web Development -->
+            <section id="html-quiz-section" class="mt-5">
+              <h2 class="mb-3 text-center" style="color:#1976d2;">HTML Quiz</h2>
+              <form id="htmlQuizForm">
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">1. What does HTML stand for?</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q1" id="q1a1" value="0">
+                    <label class="form-check-label" for="q1a1">Hyper Trainer Marking Language</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q1" id="q1a2" value="1">
+                    <label class="form-check-label" for="q1a2">Hyper Text Markup Language</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q1" id="q1a3" value="2">
+                    <label class="form-check-label" for="q1a3">Hyper Text Marketing Language</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q1" id="q1a4" value="3">
+                    <label class="form-check-label" for="q1a4">Hyper Tool Multi Language</label>
+                  </div>
+                  <div class="text-danger small mt-1" id="hint1" style="display:none;"></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">2. Which tag is used for the largest heading?</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q2" id="q2a1" value="0">
+                    <label class="form-check-label" for="q2a1">&lt;h6&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q2" id="q2a2" value="1">
+                    <label class="form-check-label" for="q2a2">&lt;heading&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q2" id="q2a3" value="2">
+                    <label class="form-check-label" for="q2a3">&lt;h1&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q2" id="q2a4" value="3">
+                    <label class="form-check-label" for="q2a4">&lt;head&gt;</label>
+                  </div>
+                  <div class="text-danger small mt-1" id="hint2" style="display:none;"></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">3. What is the correct HTML element for inserting a line break?</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q3" id="q3a1" value="0">
+                    <label class="form-check-label" for="q3a1">&lt;break&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q3" id="q3a2" value="1">
+                    <label class="form-check-label" for="q3a2">&lt;br&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q3" id="q3a3" value="2">
+                    <label class="form-check-label" for="q3a3">&lt;lb&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q3" id="q3a4" value="3">
+                    <label class="form-check-label" for="q3a4">&lt;line&gt;</label>
+                  </div>
+                  <div class="text-danger small mt-1" id="hint3" style="display:none;"></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">4. Which tag is used to create a hyperlink?</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q4" id="q4a1" value="0">
+                    <label class="form-check-label" for="q4a1">&lt;a&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q4" id="q4a2" value="1">
+                    <label class="form-check-label" for="q4a2">&lt;link&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q4" id="q4a3" value="2">
+                    <label class="form-check-label" for="q4a3">&lt;href&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q4" id="q4a4" value="3">
+                    <label class="form-check-label" for="q4a4">&lt;hyper&gt;</label>
+                  </div>
+                  <div class="text-danger small mt-1" id="hint4" style="display:none;"></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">5. What is the correct HTML for adding a background color?</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q5" id="q5a1" value="0">
+                    <label class="form-check-label" for="q5a1">&lt;body bg='yellow'&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q5" id="q5a2" value="1">
+                    <label class="form-check-label" for="q5a2">&lt;background&gt;yellow&lt;/background&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q5" id="q5a3" value="2">
+                    <label class="form-check-label" for="q5a3">&lt;body style='background-color:yellow;'&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q5" id="q5a4" value="3">
+                    <label class="form-check-label" for="q5a4">&lt;bg&gt;yellow&lt;/bg&gt;</label>
+                  </div>
+                  <div class="text-danger small mt-1" id="hint5" style="display:none;"></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">6. Which tag is used to display an image?</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q6" id="q6a1" value="0">
+                    <label class="form-check-label" for="q6a1">&lt;img&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q6" id="q6a2" value="1">
+                    <label class="form-check-label" for="q6a2">&lt;image&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q6" id="q6a3" value="2">
+                    <label class="form-check-label" for="q6a3">&lt;src&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q6" id="q6a4" value="3">
+                    <label class="form-check-label" for="q6a4">&lt;pic&gt;</label>
+                  </div>
+                  <div class="text-danger small mt-1" id="hint6" style="display:none;"></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">7. How do you make text bold in HTML?</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q7" id="q7a1" value="0">
+                    <label class="form-check-label" for="q7a1">&lt;bold&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q7" id="q7a2" value="1">
+                    <label class="form-check-label" for="q7a2">&lt;b&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q7" id="q7a3" value="2">
+                    <label class="form-check-label" for="q7a3">&lt;strong&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q7" id="q7a4" value="3">
+                    <label class="form-check-label" for="q7a4">Both &lt;b&gt; and &lt;strong&gt;</label>
+                  </div>
+                  <div class="text-danger small mt-1" id="hint7" style="display:none;"></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">8. Which tag is used for an unordered list?</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q8" id="q8a1" value="0">
+                    <label class="form-check-label" for="q8a1">&lt;ol&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q8" id="q8a2" value="1">
+                    <label class="form-check-label" for="q8a2">&lt;ul&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q8" id="q8a3" value="2">
+                    <label class="form-check-label" for="q8a3">&lt;li&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q8" id="q8a4" value="3">
+                    <label class="form-check-label" for="q8a4">&lt;list&gt;</label>
+                  </div>
+                  <div class="text-danger small mt-1" id="hint8" style="display:none;"></div>
+                </div>
+                <div class="mb-4">
+                  <div class="fw-bold mb-2">9. What is the correct HTML for creating a checkbox?</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q9" id="q9a1" value="0">
+                    <label class="form-check-label" for="q9a1">&lt;input type='checkbox'&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q9" id="q9a2" value="1">
+                    <label class="form-check-label" for="q9a2">&lt;checkbox&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q9" id="q9a3" value="2">
+                    <label class="form-check-label" for="q9a3">&lt;input checkbox&gt;</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q9" id="q9a4" value="3">
+                    <label class="form-check-label" for="q9a4">&lt;cb&gt;</label>
+                  </div>
+                  <div class="text-danger small mt-1" id="hint9" style="display:none;"></div>
+                </div>
+                <div class="text-center mb-4">
+                  <button type="submit" class="btn btn-primary">Submit Answers</button>
+                </div>
+                <div id="quizResult" class="mt-3 text-center"></div>
+              </form>
+            </section>
+            
+          
+    
+      </div>
+      <div class="d-flex justify-content-end flex-row fixed-bottom p-3">
+        <a href="welcome.html" class="btn btn-primary">Back to Home</a>
+      </div>
+      <footer
+        class="text-secondary text-center py-3"
+        style="
+          background: #fff;
+          border-top: 1px solid #e0e0e0;
+          margin-top: 2rem;
+        "
+      >
+        © 2025, <strong>CodeMateAI Foundation</strong>
+      </footer>
+    </div>
+
+    <script>
+    
+      function getLearnings() {
+        return JSON.parse(localStorage.getItem("myLearnings") || "[]");
+      }
+      function addToLearnings(course) {
+        let learnings = getLearnings();
+        if (!learnings.some((c) => c.id === course.id)) {
+          learnings.push(course);
+          localStorage.setItem("myLearnings", JSON.stringify(learnings));
+        }
+      }
+      function updateButtons() {
+        let learnings = getLearnings();
+        courseButtons.forEach(({ id, course }) => {
+          const btn = document.getElementById(id);
+          if (!btn) return;
+          if (learnings.some((c) => c.id === course.id)) {
+            btn.textContent = "View Course";
+            btn.classList.remove("btn-primary");
+            btn.classList.add("btn-success");
+            btn.onclick = function () {
+              // Placeholder: go to course details page
+              alert("Course details coming soon!");
+            };
+          } else {
+            btn.textContent = id.includes("web")
+              ? `Enroll ${course.title.split(" - ")[1]} course`
+              : `Enroll ${course.title.split(" - ")[1]} course`;
+            btn.classList.remove("btn-success");
+            btn.classList.add("btn-primary");
+            btn.onclick = function () {
+              addToLearnings(course);
+              updateButtons();
+              window.location.href = "my-learnings.html";
+            };
+          }
+        });
+      }
+      updateButtons();
+    </script>
+    <script>
+     
+
+     
+    </script>
+    <style>
+      @media (max-width: 767.98px) {
+        #sidebarMenu {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100vh;
+          width: 70vw;
+          max-width: 320px;
+          z-index: 1040;
+        }
+        main {
+          padding-top: 56px !important;
+        }
+      }
+      @media (max-width: 991.98px) {
+        .card {
+          margin-bottom: 1.5rem;
+        }
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // On DOMContentLoaded, update all sidebar links for completed courses (green + tick)
+      window.addEventListener('DOMContentLoaded', function() {
+        const allProgress = JSON.parse(localStorage.getItem('allQuizProgress') || '{}');
+        // Map of course keys to sidebar link hrefs
+        const courseSidebarLinks = {
+          htmlBeginner: 'web-beginner-html.html',
+          cssBeginner: 'web-beginner-css.html',
+          jsBeginner: 'web-beginner-js.html',
+          // Add more beginner courses here if needed
+        };
+        // Intermediate structure: allProgress.intermediate = { html: {...}, css: {...}, bootstrap: {...} }
+        if (allProgress.intermediate) {
+          if (allProgress.beginner.html && allProgress.beginner.html.completed) {
+            courseSidebarLinks['beginnerHtml'] = 'web-beginner-html.html';
+          }
+          if (allProgress.beginner.css && allProgress.beginner.css.completed) {
+            courseSidebarLinks['beginnerCss'] = 'web-beginner-css.html';
+          }
+          if (allProgress.beginner.js && allProgress.beginner.js.completed) {
+            courseSidebarLinks['beginnerjs'] = 'web-beginner-js.html';
+          }
+        }
+        // Loop through all course keys and update sidebar if completed
+        Object.entries(courseSidebarLinks).forEach(([key, href]) => {
+          let completed = false;
+          if (key.startsWith('beginner')) {
+            // e.g. intermediateHtml, intermediateCss, intermediateBootstrap
+            const subkey = key.replace('beginner','').toLowerCase();
+            completed = allProgress.intermediate && allProgress.beginner[subkey] && allProgress.beginner[subkey].completed;
+          } else {
+            completed = allProgress[key] && allProgress[key].completed;
+          }
+          if (completed) {
+            const link = document.querySelector(`a[href='${href}']`);
+            if (link) {
+              link.style.background = '#d1fae5';
+              link.style.color = '#059669';
+              link.style.fontWeight = '700';
+              link.style.borderRadius = '8px';
+              if (!link.querySelector('.quiz-complete-tick')) {
+                const tick = document.createElement('span');
+                tick.className = 'quiz-complete-tick ms-2';
+                tick.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check2' viewBox='0 0 16 16'><path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0'/></svg>`;
+                link.appendChild(tick);
+              }
+            }
+          }
+        });
+        // Restore quiz answers for this page (HTML beginner)
+        const saved = allProgress['htmlBeginner'] || {};
+        for(let i=1;i<=9;i++){
+          if(saved['q'+i] !== undefined){
+            const radio = document.getElementById('q'+i+'a'+(Number(saved['q'+i])+1));
+            if(radio) radio.checked = true;
+          }
+        }
+      });
+
+      document.getElementById('htmlQuizForm').onsubmit = function(e) {
+        e.preventDefault();
+        let score = 0;
+        const answers = ["1","2","1","0","2","0","3","1","0"];
+        let progress = {};
+        for(let i=1;i<=9;i++){
+          const selected = document.querySelector('input[name="q'+i+'"]:checked');
+          if(!selected){
+            document.getElementById('hint'+i).textContent = 'Please select an answer.';
+            document.getElementById('hint'+i).style.display = 'block';
+          }else if(selected.value === answers[i-1]){
+            score++;
+            document.getElementById('hint'+i).style.display = 'none';
+            progress['q'+i] = selected.value;
+          }else{
+            document.getElementById('hint'+i).textContent = 'Try again!';
+            document.getElementById('hint'+i).style.display = 'block';
+            progress['q'+i] = selected.value;
+          }
+        }
+        const resultDiv = document.getElementById('quizResult');
+        if(score === 9){
+          resultDiv.innerHTML = `<span class='fw-bold text-success'>All answers correct! 🎉</span>`;
+          progress.completed = true;
+          // Make HTML sidebar link green and add tick
+          const htmlLink = document.querySelector("a[href='web-beginner-html.html']");
+          if (htmlLink) {
+            htmlLink.style.background = '#d1fae5';
+            htmlLink.style.color = '#059669';
+            htmlLink.style.fontWeight = '700';
+            htmlLink.style.borderRadius = '8px';
+            // Add tick SVG if not already present
+            if (!htmlLink.querySelector('.quiz-complete-tick')) {
+              const tick = document.createElement('span');
+              tick.className = 'quiz-complete-tick ms-2';
+              tick.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check2' viewBox='0 0 16 16'><path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0'/></svg>`;
+              htmlLink.appendChild(tick);
+            }
+          }
+        } else {
+          resultDiv.innerHTML = `<span class='fw-bold text-danger'>You scored ${score} out of 9. See hints above.`;
+        }
+        // Merge progress into allQuizProgress in localStorage
+        let allProgress = {};
+        try {
+          allProgress = JSON.parse(localStorage.getItem('allQuizProgress') || '{}');
+        } catch (e) { allProgress = {}; }
+        allProgress['htmlBeginner'] = progress;
+        localStorage.setItem('allQuizProgress', JSON.stringify(allProgress));
+      };
+    </script>
+  </body>
+</html>

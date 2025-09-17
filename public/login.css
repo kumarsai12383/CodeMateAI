@@ -1,0 +1,253 @@
+
+ body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f6fa;
+        font-family: Arial, sans-serif;
+          background: linear-gradient(120deg, #232946 0%, #1a1f2b 100%);
+      .login-card {
+        background: rgba(35, 41, 70, 0.98);
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(74,144,226,0.25), 0 1.5px 0 #4a90e2;
+        padding: 2.5rem 2rem;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 2;
+        border: 1.5px solid #4a90e2;
+        backdrop-filter: blur(2px);
+      }
+      .logo-placeholder {
+        width: 70px;
+        height: 70px;
+        background: #e1e4ea;
+        border-radius: 50%;
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: #b0b3b8;
+      }
+      .logo{
+        border-radius: 10px;
+      }
+      h2 {
+        margin: 0 0 1.5rem 0;
+        font-size: 1.3rem;
+        font-weight: 600;
+        text-align: center;
+      }
+      .input-group {
+        width: 100%;
+        margin-bottom: 1rem;
+        position: relative;
+      }
+      .input-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #b0b3b8;
+        font-size: 1rem;
+      }
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 0.7rem 0.7rem 0.7rem 2.2rem;
+        border: 1px solid #e1e4ea;
+        border-radius: 8px;
+        font-size: 1rem;
+        background: #f9fafb;
+        outline: none;
+      }
+      .forgot-link {
+        width: 100%;
+        text-align: right;
+        margin-bottom: 1.2rem;
+        font-size: 0.95rem;
+        color: #4a90e2;
+        text-decoration: none;
+      }
+      .login-btn {
+        width: 100%;
+        padding: 0.8rem;
+        background: #4a90e2;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 1.2rem;
+      }
+      .divider {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #e1e4ea;
+        line-height: 0.1em;
+        margin: 1.2rem 0 1.2rem 0;
+      }
+      .divider span {
+        background: #fff;
+        padding: 0 1rem;
+        color: #b0b3b8;
+        font-size: 0.95rem;
+      }
+      .social-btns {
+        width: 100%;
+        display: flex;
+        gap: 0.7rem;
+        margin-bottom: 1.2rem;
+      }
+      .social-btn {
+        flex: 1;
+        padding: 0.7rem;
+        border: 1px solid #e1e4ea;
+        border-radius: 8px;
+        background: #f9fafb;
+        color: #333;
+        font-size: 0.98rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+      }
+      .bottom-text {
+        font-size: 0.95rem;
+        color: #888;
+        margin-top: 0.5rem;
+        text-align: center;
+      }
+      .bottom-text a {
+        color: #4a90e2;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+
+      /* sign up styles */
+       body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f6fa;
+        font-family: Arial, sans-serif;
+      }
+      .signup-card {
+        background: rgba(35, 41, 70, 0.98);
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(74,144,226,0.25), 0 1.5px 0 #4a90e2;
+        padding: 2.5rem 2rem;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 2;
+        border: 1.5px solid #4a90e2;
+        backdrop-filter: blur(2px);
+      }
+      .logo-placeholder {
+        width: 56px;
+        height: 56px;
+        background: #e1e4ea;
+        border-radius: 50%;
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: #b0b3b8;
+      }
+      h2 {
+        margin: 0 0 1.5rem 0;
+        font-size: 1.3rem;
+        font-weight: 600;
+        text-align: center;
+      }
+      .input-group {
+        width: 100%;
+        margin-bottom: 1rem;
+        position: relative;
+      }
+      .input-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #b0b3b8;
+        font-size: 1rem;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 0.7rem 0.7rem 0.7rem 2.2rem;
+        border: 1px solid #e1e4ea;
+        border-radius: 8px;
+        font-size: 1rem;
+        background: #f9fafb;
+        outline: none;
+      }
+      .signup-btn {
+        width: 100%;
+        padding: 0.8rem;
+        background: #4a90e2;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 1.2rem;
+      }
+      .divider {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #e1e4ea;
+        line-height: 0.1em;
+        margin: 1.2rem 0 1.2rem 0;
+      }
+      .divider span {
+        background: #fff;
+        padding: 0 1rem;
+        color: #b0b3b8;
+        font-size: 0.95rem;
+      }
+      .social-btns {
+        width: 100%;
+        display: flex;
+        gap: 0.7rem;
+        margin-bottom: 1.2rem;
+      }
+      .social-btn {
+        flex: 1;
+        padding: 0.7rem;
+        border: 1px solid #e1e4ea;
+        border-radius: 8px;
+        background: #f9fafb;
+        color: #333;
+        font-size: 0.98rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+      }
+      .bottom-text {
+        font-size: 0.95rem;
+        color: #888;
+        margin-top: 0.5rem;
+        text-align: center;
+      }
+      .bottom-text a {
+        color: #4a90e2;
+        text-decoration: none;
+        font-weight: 500;
+      }
+    }
