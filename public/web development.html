@@ -544,7 +544,26 @@ document.addEventListener('DOMContentLoaded', function() {
     certBtn.disabled = !allDone;
     certBtn.onclick = function() {
       if (allDone) {
-        window.location.href = "certificate.html";
+        // Get user name from localStorage
+        const profile = JSON.parse(localStorage.getItem("userProfile") || "{}");
+        fetch('/api/certificate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: profile.name,
+            course: "Web Development", // Or set dynamically if needed
+            date: new Date().toLocaleDateString()
+          })
+        })
+        .then(res => res.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = "certificate.pdf";
+          a.click();
+          window.URL.revokeObjectURL(url);
+        });
       }
     };
   }
@@ -552,4 +571,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
   </body>
 </html>
-
