@@ -81,6 +81,10 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+// Import and use certificate router
+const certificateRouter = require("./server/certificate");
+app.use("/api", certificateRouter);
+
 // Start server
 // Endpoint to list available Gemini models for debugging
 
