@@ -12,11 +12,11 @@ router.post("/certificate", async (req, res) => {
     // Image paths
     const codeMateLogoPath = path.join(
       __dirname,
-      "../public/images/codemateai_logo.png"
+      "../public/images/codemateai-logo.png"
     );
     const codeTitansSealPath = path.join(
       __dirname,
-      "../public/images/code_titans_seal.png"
+      "../public/images/code-titans-logo.png"
     );
 
     // Check images
