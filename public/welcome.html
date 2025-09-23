@@ -6,7 +6,7 @@
     <title>CodeMateAI</title>
     <link rel="icon" type="image/png" href="edu_logo-welcome.png" />
     <link rel="stylesheet" href="welcome.css" />
-    <script src="ai-chat-logic.js"></script>
+    
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -17,6 +17,188 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
       crossorigin="anonymous"
     />
+    <!-- Chatbot Styles -->
+    <style>
+      .chatbot-container {
+        max-width: 480px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(25, 118, 210, 0.15);
+        overflow: hidden;
+      }
+
+      .chatbot-header {
+        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .chatbot-messages {
+        height: 300px;
+        overflow-y: auto;
+        padding: 1rem;
+        background: #f8f9fa;
+        scroll-behavior: smooth;
+      }
+
+      .chatbot-message {
+        display: flex;
+        margin-bottom: 1rem;
+        animation: fadeInUp 0.3s ease-out;
+      }
+
+      .chatbot-message.user {
+        flex-direction: row-reverse;
+      }
+
+      .chatbot-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        margin: 0 0.5rem;
+        flex-shrink: 0;
+      }
+
+      .chatbot-message.bot .chatbot-avatar {
+        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+        color: white;
+      }
+
+      .chatbot-message.user .chatbot-avatar {
+        background: #28a745;
+        color: white;
+      }
+
+      .chatbot-bubble {
+        max-width: 70%;
+        padding: 0.75rem 1rem;
+        border-radius: 18px;
+        word-wrap: break-word;
+        line-height: 1.4;
+      }
+
+      .chatbot-message.bot .chatbot-bubble {
+        background: #e3f2fd;
+        color: #1565c0;
+        border-bottom-left-radius: 4px;
+      }
+
+      .chatbot-message.user .chatbot-bubble {
+        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+        color: white;
+        border-bottom-right-radius: 4px;
+      }
+
+      .chatbot-input {
+        padding: 1rem;
+        background: white;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      .chatbot-input .form-control {
+        border: 2px solid #e0e0e0;
+        border-radius: 25px;
+        padding: 0.75rem 1rem;
+        resize: none;
+        transition: border-color 0.3s ease;
+      }
+
+      .chatbot-input .form-control:focus {
+        border-color: #1976d2;
+        box-shadow: none;
+        outline: none;
+      }
+
+      .chatbot-input .btn {
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        border: none;
+        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+        margin-left: 10px;
+        transition: transform 0.2s ease;
+      }
+
+      .chatbot-input .btn:hover {
+        transform: scale(1.05);
+      }
+
+      .chatbot-input .btn:disabled {
+        opacity: 0.6;
+        transform: none;
+      }
+
+      .chatbot-loading {
+        display: none;
+        padding: 0 1rem;
+      }
+
+      .typing-indicator {
+        display: flex;
+        align-items: center;
+        height: 20px;
+      }
+
+      .typing-indicator span {
+        height: 6px;
+        width: 6px;
+        background: #1976d2;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0 2px;
+        animation: typing 1.4s infinite ease-in-out;
+      }
+
+      .typing-indicator span:nth-child(1) {
+        animation-delay: -0.32s;
+      }
+      .typing-indicator span:nth-child(2) {
+        animation-delay: -0.16s;
+      }
+
+      @keyframes typing {
+        0%,
+        80%,
+        100% {
+          transform: scale(0.8);
+          opacity: 0.5;
+        }
+        40% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .chatbot-messages::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .chatbot-messages::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      .chatbot-messages::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 3px;
+      }
+    </style>
   </head>
   <body>
     <!-- Responsive Navbar/Sidebar -->
@@ -111,42 +293,71 @@
         Explore our features and get started with your learning journey! with AI
         assistance
       </p>
-      <!-- AI Chat Dialog Box -->
-      <div
-        id="ai-chat-box"
-        class="mt-4"
-        style="
-          max-width: 480px;
-          margin: 0 auto;
-          background: rgba(255, 255, 255, 0.12);
-          border-radius: 16px;
-          box-shadow: 0 2px 16px rgba(25, 118, 210, 0.1);
-          padding: 1.5rem;
-        "
-      >
-        <h5 class="mb-3" style="color: #0e57e9">
-          <i class="fa fa-robot me-2"></i>Don't Know what to learn? Ask me! I'm
-          your AI professor
-        </h5>
-        <div
-          id="chat-messages"
-          style="min-height: 80px; margin-bottom: 1rem"
-        ></div>
-        <form id="chat-form" class="d-flex">
-          <input
-            type="text"
-            id="chat-input"
-            class="form-control me-2"
-            placeholder="Type Your interests (e.g., web development)"
-            required
-          />
-          <button type="submit" class="btn btn-primary">
-            <i class="fa fa-paper-plane"></i>
-          </button>
-        </form>
+
+      <!-- Enhanced AI Chatbot -->
+      <div id="chatbot" class="mt-4">
+        <div class="chatbot-container">
+          <div class="chatbot-header">
+            <div class="d-flex align-items-center justify-content-center">
+              <div class="me-3">
+                <i class="fas fa-robot fa-2x"></i>
+              </div>
+              <div>
+                <h5 class="mb-0">AI Professor</h5>
+                <small>Ask me anything about tech & careers!</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="chatbot-messages" id="chatbotMessages">
+            <div class="chatbot-message bot">
+              <div class="chatbot-avatar">
+                <i class="fas fa-robot"></i>
+              </div>
+              <div class="chatbot-bubble">
+                Hello! I'm your AI professor. I can help you with course
+                recommendations, programming questions, and career advice. What
+                would you like to learn about?
+              </div>
+            </div>
+          </div>
+
+          <div class="chatbot-loading" id="chatbotLoading">
+            <div class="chatbot-message bot">
+              <div class="chatbot-avatar">
+                <i class="fas fa-robot"></i>
+              </div>
+              <div class="chatbot-bubble">
+                <div class="typing-indicator">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chatbot-input">
+            <form id="chatbotForm" class="d-flex">
+              <input
+                type="text"
+                class="form-control"
+                id="chatbotInput"
+                placeholder="Ask about courses, programming, careers..."
+                autocomplete="off"
+                required
+              />
+              <button class="btn btn-primary" type="submit" id="chatbotSend">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+
         <div id="preferred-courses" class="mt-4"></div>
       </div>
     </div>
+
     <footer class="footer text-secondary">
       © 2025, <strong>CodeMateAI Foundation</strong>
     </footer>
@@ -161,13 +372,17 @@
       integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
       crossorigin="anonymous"
     ></script>
+
+    <!-- Load chatbot JavaScript -->
+    <script src="js/chatbot.js"></script>
+
     <script>
-      // Ensure DOM is loaded before running JS
+      // Profile info loading
       document.addEventListener("DOMContentLoaded", function () {
-        // Profile info
         const profile = JSON.parse(localStorage.getItem("userProfile") || "{}");
         const username = profile.name || "User";
         const email = profile.email || "user@email.com";
+
         if (document.getElementById("nav-username")) {
           document.getElementById("nav-username").textContent = username;
         }
@@ -179,207 +394,6 @@
         }
         if (document.getElementById("welcome-username")) {
           document.getElementById("welcome-username").textContent = username;
-        }
-
-        // AI Chat Dialog Logic (Frontend Only)
-        const chatForm = document.getElementById("chat-form");
-        const chatInput = document.getElementById("chat-input");
-        const chatMessages = document.getElementById("chat-messages");
-        const preferredCourses = document.getElementById("preferred-courses");
-        // List of popular courses and keywords
-        const courseMap = [
-          {
-            name: "Web Development Beginner",
-            keywords: ["web development beginner", "html", "css"],
-            link: "courses.html#web-beginner",
-          },
-          {
-            name: "Web Development Intermediate",
-            keywords: [
-              "web development intermediate",
-              "javascript",
-              "react",
-              "vue",
-              "angular",
-            ],
-            link: "courses.html#web-intermediate",
-          },
-          {
-            name: "Web Development Advanced",
-            keywords: [
-              "web development advanced",
-              "devops",
-              "ci/cd",
-              "docker",
-              "microservices",
-            ],
-            link: "courses.html#web-advanced",
-          },
-          {
-            name: "Data Science Beginner",
-            keywords: ["data science beginner", "python basics", "r basics"],
-            link: "courses.html#ds-beginner",
-          },
-          {
-            name: "Data Science Intermediate",
-            keywords: [
-              "data science intermediate",
-              "pandas",
-              "numpy",
-              "matplotlib",
-              "machine learning",
-            ],
-            link: "courses.html#ds-intermediate",
-          },
-          {
-            name: "Data Science Advanced",
-            keywords: [
-              "data science advanced",
-              "deep learning",
-              "nlp",
-              "kaggle",
-            ],
-            link: "courses.html#ds-advanced",
-          },
-          {
-            name: "AI & ML Beginner",
-            keywords: [
-              "ai beginner",
-              "ml beginner",
-              "artificial intelligence beginner",
-              "machine learning beginner",
-            ],
-            link: "courses.html#ai-beginner",
-          },
-          {
-            name: "AI & ML Intermediate",
-            keywords: [
-              "ai intermediate",
-              "ml intermediate",
-              "machine learning intermediate",
-              "tensorflow",
-              "pytorch",
-            ],
-            link: "courses.html#ai-intermediate",
-          },
-          {
-            name: "AI & ML Advanced",
-            keywords: [
-              "ai advanced",
-              "ml advanced",
-              "deep learning advanced",
-              "nlp advanced",
-              "reinforcement learning",
-            ],
-            link: "courses.html#ai-advanced",
-          },
-          {
-            name: "Cybersecurity Beginner",
-            keywords: [
-              "cybersecurity beginner",
-              "security basics",
-              "firewalls",
-              "antivirus",
-            ],
-            link: "courses.html#cyber-beginner",
-          },
-          {
-            name: "Cybersecurity Intermediate",
-            keywords: [
-              "cybersecurity intermediate",
-              "network security",
-              "incident response",
-            ],
-            link: "courses.html#cyber-intermediate",
-          },
-          {
-            name: "Cybersecurity Advanced",
-            keywords: [
-              "cybersecurity advanced",
-              "penetration testing",
-              "oscp",
-              "cissp",
-            ],
-            link: "courses.html#cyber-advanced",
-          },
-        ];
-        // Helper to check if input matches any course keyword
-        function matchesAnyCourse(input) {
-          return courseMap.some((course) =>
-            course.keywords.some((kw) => input.toLowerCase().includes(kw))
-          );
-        }
-
-        function getRecommendedCourses(userMsg) {
-          const input = userMsg.toLowerCase();
-          let recommended = [];
-          for (const course of courseMap) {
-            if (course.keywords.some((kw) => input.includes(kw))) {
-              recommended.push(course);
-            }
-          }
-          // If user is undecided or asks for a general course, show all levels for each course
-          if (
-            input.includes("i don't know what to learn") ||
-            input.includes("dont know what to learn") ||
-            input.includes("confused") ||
-            input.includes("which programming language is best") ||
-            input.includes("best programming language") ||
-            input.includes("which course") ||
-            input.includes("what should i learn") ||
-            input.includes("web development") ||
-            input.includes("data science") ||
-            input.includes("ai") ||
-            input.includes("cybersecurity")
-          ) {
-            recommended = courseMap;
-          }
-          return recommended;
-        }
-
-        if (chatForm) {
-          chatForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const userMsg = chatInput.value.trim();
-            if (!userMsg) return;
-            chatMessages.innerHTML += `<div style='text-align:right;'><span style='background:#1976d2;color:#fff;padding:6px 14px;border-radius:12px;display:inline-block;margin-bottom:4px;'>${userMsg}</span></div>`;
-            chatInput.value = "";
-
-            // Use external chat logic
-            let aiResponse = "";
-            if (typeof window.getAIResponse === "function") {
-              aiResponse = window.getAIResponse(userMsg);
-              // If no course matches, ask for clarification
-              if (
-                !matchesAnyCourse(userMsg) &&
-                aiResponse ===
-                  "I couldn't detect a specific interest or topic. Please enter any of your interests (like web development, data science, mobile apps, game development, cybersecurity, etc.) and I'll give you personalized advice!"
-              ) {
-                aiResponse =
-                  "Please explain your interested domain, like web development, python development, data science, AI, cybersecurity, etc.";
-              }
-              chatMessages.innerHTML += `<div style='text-align:left;'><span style='background:#e3eafc;color:#1976d2;padding:6px 14px;border-radius:12px;display:inline-block;margin-bottom:4px;'><i class='fa fa-robot me-2'></i>${aiResponse.replace(
-                /\n/g,
-                "<br>"
-              )}</span></div>`;
-            } else {
-              chatMessages.innerHTML += `<div style='text-align:left;'><span style='background:#ffdddd;color:#d32f2f;padding:6px 14px;border-radius:12px;display:inline-block;margin-bottom:4px;'>Error: AI chat logic not loaded. Please check that ai-chat-logic.js is present and loaded before this script.</span></div>`;
-            }
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // Show preferred courses
-            const recommended = getRecommendedCourses(userMsg);
-            if (recommended.length > 0) {
-              preferredCourses.innerHTML = `<div class='mb-2 fw-bold' style='color:#1976d2;'>Preferred Courses for You:</div><div class='d-flex flex-wrap gap-3'>${recommended
-                .map(
-                  (course) =>
-                    `<a href='${course.link}' class='btn btn-outline-primary' style='min-width:180px;font-weight:500;'>${course.name}</a>`
-                )
-                .join("")}</div>`;
-            } else {
-              preferredCourses.innerHTML = "";
-            }
-          });
         }
       });
     </script>
