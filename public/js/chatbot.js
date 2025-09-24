@@ -1,4 +1,3 @@
-
 class EduAIChatbot {
   constructor() {
     this.chatMessages = document.getElementById("chatbotMessages");
@@ -189,12 +188,16 @@ class EduAIChatbot {
   formatMessage(content) {
     // Convert URLs to links
     const urlRegex = /(https?:\/\/[^\s]+)/g;
-    content = content.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
+    content = content.replace(
+      urlRegex,
+      '<a href="$1" target="_blank" style="font-size: 14px;">$1</a>'
+    );
 
     // Convert line breaks to <br>
     content = content.replace(/\n/g, "<br>");
 
-    return content;
+    // Wrap content in a span to ensure consistent styling
+    return `<span style="font-size: 14px; line-height: 1.4;">${content}</span>`;
   }
 
   showLoading() {
