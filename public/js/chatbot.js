@@ -93,75 +93,63 @@ class EduAIChatbot {
 
   async sendMessage() {
     const message = this.messageInput.value.trim();
-
     if (!message) return;
 
-    // Clear input
     this.messageInput.value = "";
-
-    // Add user message to chat
     this.addMessage(message, "user");
-
-    // Show loading indicator
     this.showLoading();
 
     try {
-      // First try the AI chat logic fallback, then try API
-      let aiResponse = "";
-
-      // Try the existing AI chat logic first
-      if (typeof window.getAIResponse === "function") {
-        aiResponse = window.getAIResponse(message);
-
-        // Hide loading indicator
-        this.hideLoading();
-
-        // Add AI response to chat
-        this.addMessage(aiResponse, "bot");
-
-        // Show course recommendations
-        this.showCourseRecommendations(message);
-
-        return;
-      }
-
-      // Fallback to API call
+      // Try API first
       const response = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message }),
       });
 
       const data = await response.json();
-
-      // Hide loading indicator
       this.hideLoading();
 
       if (!response.ok) {
-        throw new Error(data.error || "Something went wrong");
+        throw new Error(data.error || "API Error");
       }
 
-      // Add bot response to chat
+      // Add bot response (even if it's a fallback)
       this.addMessage(data.reply, "bot");
-
-      // Show course recommendations
       this.showCourseRecommendations(message);
     } catch (error) {
-      // Hide loading indicator
       this.hideLoading();
 
-      // Try fallback to local AI logic
+      // Fallback to local AI logic
       if (typeof window.getAIResponse === "function") {
         const fallbackResponse = window.getAIResponse(message);
         this.addMessage(fallbackResponse, "bot");
         this.showCourseRecommendations(message);
       } else {
-        // Show error message
-        this.showError(
-          "Sorry, I'm having trouble connecting right now. Please try again later."
-        );
+        // Final fallback responses
+        const fallbackResponses = {
+          hello:
+            "Hello! I'm your CodeMateAI assistant. How can I help you with your learning today?",
+          "web development":
+            "Web development is a great career choice! Start with HTML, CSS, and JavaScript basics. Would you like course recommendations?",
+          programming:
+            "Programming opens many doors! What type of programming interests you - web development, data science, or mobile apps?",
+          default:
+            "I'm here to help with your educational journey. Ask me about courses, programming, or career advice!",
+        };
+
+        const lowerMessage = message.toLowerCase();
+        let response = fallbackResponses.default;
+
+        for (const [key, value] of Object.entries(fallbackResponses)) {
+          if (lowerMessage.includes(key) && key !== "default") {
+            response = value;
+            break;
+          }
+        }
+
+        this.addMessage(response, "bot");
+        this.showCourseRecommendations(message);
       }
     }
   }
