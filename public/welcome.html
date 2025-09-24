@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CodeMateAI</title>
-    <link rel="icon" type="image/png" href="edu_logo-welcome.png" />
+    <link rel="icon" type="image/png" href="edu logo icon.jpg" />
     <link rel="stylesheet" href="welcome.css" />
-    
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -66,6 +66,7 @@
       }
 
       .chatbot-message.bot .chatbot-avatar {
+        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
         color: white;
       }
 
@@ -79,18 +80,50 @@
         padding: 0.75rem 1rem;
         border-radius: 18px;
         word-wrap: break-word;
+        word-break: break-word; /* Add this */
+        overflow-wrap: break-word; /* Add this */
         line-height: 1.4;
+        font-size: 14px !important; /* Make this important */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif; /* Add consistent font */
       }
 
       .chatbot-message.bot .chatbot-bubble {
         background: #e3f2fd;
         color: #1565c0;
         border-bottom-left-radius: 4px;
+        max-width: 85%; /* Increase max-width for bot messages */
       }
 
       .chatbot-message.user .chatbot-bubble {
-         color: white;
+        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+        color: white;
         border-bottom-right-radius: 4px;
+        max-width: 75%; /* Control user message width */
+      }
+
+      /* Add specific control for text content */
+      .chatbot-bubble * {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+      }
+
+      /* Control code or special formatting */
+      .chatbot-bubble code {
+        font-size: 13px !important;
+        background: rgba(0, 0, 0, 0.1);
+        padding: 2px 4px;
+        border-radius: 3px;
+      }
+
+      /* Ensure consistent spacing */
+      .chatbot-bubble p {
+        margin: 0 0 8px 0;
+        font-size: 14px !important;
+      }
+
+      .chatbot-bubble p:last-child {
+        margin-bottom: 0;
       }
 
       .chatbot-input {
@@ -233,7 +266,12 @@
               <a class="nav-link" href="my-learnings.html">My Learnings</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://onlineeditorcodemateai.netlify.app/" target="_blank">Code Editor</a>
+              <a
+                class="nav-link"
+                href="https://onlineeditorcodemateai.netlify.app/"
+                target="_blank"
+                >Code Editor</a
+              >
             </li>
             <li class="nav-item dropdown">
               <a
@@ -298,7 +336,7 @@
           <div class="chatbot-header">
             <div class="d-flex align-items-center justify-content-center">
               <div class="me-3">
-                 <img src="AI logo.png" alt="" width="30px" height="30px">
+                <img src="AI logo.png" alt="" width="30px" height="30px" />
               </div>
               <div>
                 <h5 class="mb-0">AI Professor</h5>
@@ -310,7 +348,13 @@
           <div class="chatbot-messages" id="chatbotMessages">
             <div class="chatbot-message bot">
               <div class="chatbot-avatar">
-                 <img src="AI logo.png" alt="" width="30px" height="25px" style="border-radius: 20px;">
+                <img
+                  src="AI logo.png"
+                  alt=""
+                  width="30px"
+                  height="25px"
+                  style="border-radius: 20px"
+                />
               </div>
               <div class="chatbot-bubble">
                 Hello! I'm your AI professor. I can help you with course
@@ -323,7 +367,13 @@
           <div class="chatbot-loading" id="chatbotLoading">
             <div class="chatbot-message bot">
               <div class="chatbot-avatar">
-                <img src="AI logo.png" alt="" width="30px" height="25px" style="border-radius: 20px;">
+                <img
+                  src="AI logo.png"
+                  alt=""
+                  width="30px"
+                  height="25px"
+                  style="border-radius: 20px"
+                />
               </div>
               <div class="chatbot-bubble">
                 <div class="typing-indicator">
