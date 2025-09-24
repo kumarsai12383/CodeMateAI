@@ -174,7 +174,14 @@ Please provide a helpful, educational response:`;
     console.error("Gemini API error:", error);
 
     // Handle different types of errors
-    if (error.message && error.message.includes("API_KEY_INVALID")) {
+    if (error.status === 503) {
+      // Service overloaded - return fallback response
+      res.status(200).json({
+        reply:
+          "I'm experiencing high demand right now. Let me help you with some basic guidance: For web development, start with HTML/CSS basics, then JavaScript. For data science, Python is a great starting point. What specific area interests you most?",
+        fallback: true,
+      });
+    } else if (error.message && error.message.includes("API_KEY_INVALID")) {
       res.status(500).json({
         error: "Invalid Gemini API key. Please check your configuration.",
       });
